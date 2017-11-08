@@ -1,6 +1,6 @@
 # ECVerify
 
->  A [solidity](https://github.com/ethereum/solidity) library for verifying Ethereum signatures.
+>  A [solidity](https://github.com/ethereum/solidity) library for verifying elliptic curve signatures in Ethereum.
 
 # Usage
 
