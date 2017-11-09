@@ -29,6 +29,7 @@ contract('ECVerify', function(accounts) {
 
       var hash = web3.sha3(msg)
       var sig = web3.eth.sign(account, hash)
+console.log(Buffer.byteLength(sig, 'utf8'))
 
       var verified = await instance.ecverify.call(hash, sig, account)
       assert.ok(verified)
