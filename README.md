@@ -6,17 +6,17 @@
 
 - **ecrecovery**(hash, sig) -> `address`
 
-  - {bytes32} hash - sha3 (keccak256) hash of message
+  - {bytes32} hash - 32 byte sha3 (keccak256) hash of original message data
 
-  - {bytes} sig - signature string
+  - {bytes} sig - 65 byte signature string
 
 - **ecverify**(hash, sig, account) -> `bool`
 
-  - {bytes32} hash - sha3 (keccak256) hash of message
+  - {bytes32} hash - 32 byte sha3 (keccak256) hash of original message data
 
-  - {bytes} sig - signature string
+  - {bytes} sig - 65 byte signature string
 
-  - {address} signer - address of proposed signer
+  - {address} signer - 20 byte address of proposed signer
 
 
 # Usage
