@@ -1,0 +1,6 @@
+name            ECVerify
+description     A wrapper around ecrecover
+version         1
+
+author          Miguel Mota
+license         MIT
