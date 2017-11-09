@@ -4,10 +4,6 @@
 
 # API
 
-crawl(uri) -> Promise({object[]})
-
-{string} uri - website domain or uri
-
 - **ecrecovery**(hash, sig) -> `address`
 
   - {bytes32} hash - sha3 (keccak256) hash of message
