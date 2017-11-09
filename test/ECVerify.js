@@ -1,14 +1,13 @@
 var ECVerify = artifacts.require('./ECVerify.sol')
 
-contract('ECVerify', function(accounts) {
-  it('should return signer account from signature', async function() {
+contract('ECVerify', (accounts) => {
+  it('should return signing address from signature', async () => {
     var account = accounts[0]
 
     try {
       var instance = await ECVerify.deployed()
 
-      // sample data here is sha256 of a file
-      var msg = '7e5941f066b2070419995072dac7323c02d5ae107b23d8085772f232487fecae'
+      var msg = 'some data'
 
       var hash = web3.sha3(msg)
       var sig = web3.eth.sign(account, hash)
@@ -20,12 +19,13 @@ contract('ECVerify', function(accounts) {
       assert.equal(error, undefined)
     }
   })
-  it('should verify signature is from account', async function() {
+
+  it('should verify signature is from address', async () => {
     var account = accounts[0]
 
     try {
       var instance = await ECVerify.deployed()
-      var msg = '7e5941f066b2070419995072dac7323c02d5ae107b23d8085772f232487fecae'
+      var msg = 'some data'
 
       var hash = web3.sha3(msg)
       var sig = web3.eth.sign(account, hash)
