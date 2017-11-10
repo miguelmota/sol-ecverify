@@ -1,23 +1,22 @@
-var ECVerify = artifacts.require('./ECVerify.sol')
+const ECVerify = artifacts.require('./ECVerify.sol')
+const {sha3} = require('ethereumjs-util')
 
 contract('ECVerify', (accounts) => {
   it('should return signing address from signature', async () => {
-    var account = accounts[0]
+    const account = accounts[0]
 
     try {
-      var instance = await ECVerify.deployed()
+      const instance = await ECVerify.deployed()
 
-      var msg = 'some data'
-
-      var hash = web3.sha3(msg)
-      var sig = web3.eth.sign(account, hash)
+      const msg = Buffer.from('some data')
+      const sig = web3.eth.sign(account, `0x${msg.toString('hex')}`)
 
       // https://github.com/ethereum/go-ethereum/issues/3731
-      var prefix = '\x19Ethereum Signed Message:\n32'
-      var phash = web3.sha3(prefix + hash)
+      const prefix = Buffer.from('\x19Ethereum Signed Message:\n');
+      const pmsg = `0x${sha3(Buffer.concat([prefix, Buffer.from(String(msg.length)), msg])).toString('hex')}`
 
-      var signer = await instance.ecrecovery(phash, sig)
-      assert.ok(signer)
+      const signer = await instance.ecrecovery(pmsg, sig)
+      assert.equal(signer, account)
     } catch(error) {
       console.error(error)
       assert.equal(error, undefined)
@@ -25,21 +24,18 @@ contract('ECVerify', (accounts) => {
   })
 
   it('should verify signature is from address', async () => {
-    var account = accounts[0]
+    const account = accounts[0]
 
     try {
-      var instance = await ECVerify.deployed()
-      var msg = 'some data'
+      const instance = await ECVerify.deployed()
 
-      var hash = web3.sha3(msg)
-      var sig = web3.eth.sign(account, hash)
+      const msg = Buffer.from('some data')
+      const sig = web3.eth.sign(account, `0x${msg.toString('hex')}`)
+      const prefix = Buffer.from('\x19Ethereum Signed Message:\n');
+      const pmsg = `0x${sha3(Buffer.concat([prefix, Buffer.from(String(msg.length)), msg])).toString('hex')}`
 
-      // https://github.com/ethereum/go-ethereum/issues/3731
-      var prefix = '\x19Ethereum Signed Message:\n32'
-      var phash = web3.sha3(prefix + hash)
-
-      var verified = await instance.ecverify(phash, sig, account)
-      assert.ok(verified)
+      const verified = await instance.ecverify(pmsg, sig, account)
+      assert.equal(verified, true)
     } catch(error) {
       console.error(error)
       assert.equal(error, undefined)

@@ -4,7 +4,7 @@ pragma solidity ^0.4.4;
  * @credit https://gist.github.com/axic/5b33912c6f61ae6fd96d6c4a47afde6d
   */
 library ECVerify {
-  function ecrecovery(bytes32 hash, bytes sig) public returns (address) {
+  function ecrecovery(bytes32 hash, bytes sig) public constant returns (address) {
     bytes32 r;
     bytes32 s;
     uint8 v;
@@ -31,7 +31,7 @@ library ECVerify {
     return ecrecover(hash, v, r, s);
   }
 
-  function ecverify(bytes32 hash, bytes sig, address signer) public returns (bool) {
+  function ecverify(bytes32 hash, bytes sig, address signer) public constant returns (bool) {
     return signer == ecrecovery(hash, sig);
   }
 }
