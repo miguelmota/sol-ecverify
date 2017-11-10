@@ -12,7 +12,11 @@ contract('ECVerify', (accounts) => {
       var hash = web3.sha3(msg)
       var sig = web3.eth.sign(account, hash)
 
-      var signer = await instance.ecrecovery(hash, sig)
+      // https://github.com/ethereum/go-ethereum/issues/3731
+      var prefix = '\x19Ethereum Signed Message:\n32'
+      var phash = web3.sha3(prefix + hash)
+
+      var signer = await instance.ecrecovery(phash, sig)
       assert.ok(signer)
     } catch(error) {
       console.error(error)
@@ -30,7 +34,11 @@ contract('ECVerify', (accounts) => {
       var hash = web3.sha3(msg)
       var sig = web3.eth.sign(account, hash)
 
-      var verified = await instance.ecverify.call(hash, sig, account)
+      // https://github.com/ethereum/go-ethereum/issues/3731
+      var prefix = '\x19Ethereum Signed Message:\n32'
+      var phash = web3.sha3(prefix + hash)
+
+      var verified = await instance.ecverify(phash, sig, account)
       assert.ok(verified)
     } catch(error) {
       console.error(error)

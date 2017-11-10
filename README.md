@@ -28,10 +28,14 @@ var msg = '7e5941f066b2070419995072dac7323c02d5ae107b23d8085772f232487fecae'
 var hash = web3.sha3(msg)
 var sig = web3.eth.sign(account, hash)
 
-var signer = await ECVerify.ecrecovery(hash, sig)
+// https://github.com/ethereum/go-ethereum/issues/3731
+var prefix = '\x19Ethereum Signed Message:\n32'
+var phash = web3.sha3(prefix + hash)
+
+var signer = await ECVerify.ecrecovery(phash, sig)
 console.log(signer) // "0xa462d983B4b8C855e1876e8c24889CBa466A67EB"
 
-var verified = await ECVerify.ecverify(hash, sig, account)
+var verified = await ECVerify.ecverify(phash, sig, account)
 console.log(verified) // true
 ```
 
