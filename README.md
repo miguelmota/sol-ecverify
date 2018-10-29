@@ -1,8 +1,8 @@
-# ECVerify
+# sol-ecverify
 
 >  A [solidity](https://github.com/ethereum/solidity) library for verifying elliptic curve signatures in Ethereum (wrapper around `ecrecover`).
 
-# API
+## API
 
 - **ecrecovery**(hash, sig) -> `address`
 
@@ -19,7 +19,7 @@
   - {address} signer - 20 byte address of proposed signer
 
 
-# Usage
+## Getting started
 
 ```javascript
 const {sha3} = require('ethereumjs-util')
@@ -39,16 +39,16 @@ var verified = await ECVerify.ecverify(pmsg, sig, account)
 console.log(verified) // true
 ```
 
-# Test
+## Test
 
 ```bash
 truffle test
 ```
 
-# Credit
+## Credit
 
-Credit goes to [@axic](https://github.com/axic) for providing this [gist](https://gist.github.com/axic/5b33912c6f61ae6fd96d6c4a47afde6d) ([#79](https://github.com/ethereum/EIPs/issues/79#issuecomment-205051630))
+Thanks to [@axic](https://github.com/axic) for providing this [gist](https://gist.github.com/axic/5b33912c6f61ae6fd96d6c4a47afde6d) ([#79](https://github.com/ethereum/EIPs/issues/79#issuecomment-205051630))
 
-# License
+## License
 
-MIT
+[MIT](LICENSE)
