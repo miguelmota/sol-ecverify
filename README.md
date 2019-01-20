@@ -1,3 +1,11 @@
+<h3 align="center">
+  <br />
+  <img src="https://user-images.githubusercontent.com/168240/51435581-88763680-1c2f-11e9-87dc-dacf99aa8113.png" alt="logo" width="400" />
+  <br />
+  <br />
+  <br />
+</h3>
+
 # sol-ecverify
 
 >  A [solidity](https://github.com/ethereum/solidity) library for verifying elliptic curve signatures in Ethereum (wrapper around `ecrecover`).
